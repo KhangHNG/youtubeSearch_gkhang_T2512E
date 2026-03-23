@@ -52,11 +52,11 @@ const Users = () => {
                     </div>
                     <div className="m-2">
                         <label htmlFor={"password"}>Mật khẩu:</label>
-                        <input type="text" placeholder="Mật khẩu" id={"password"} name={"password"} className="rounded-lg pl-2 m-2"/>
+                        <input type="password" placeholder="Mật khẩu" id={"password"} name={"password"} className="rounded-lg pl-2 m-2"/>
                     </div>
                     <div className="m-2">
                         <label htmlFor={"passwordCf"}>Kiểm tra mật khẩu:</label>
-                        <input type="text" placeholder="Nhập lại mật khẩu" id={"passwordCf"} name={"passwordCf"} className="rounded-lg pl-2 m-2"/>
+                        <input type="password" placeholder="Nhập lại mật khẩu" id={"passwordCf"} name={"passwordCf"} className="rounded-lg pl-2 m-2"/>
                     </div>
                     <div className="m-2  font-bold text-center">
                         <button value="submit" className="bg-blue-500 pl-3 pr-3 pt-2 pb-2 rounded-lg hover:bg-blue-900 hover:text-white">Đăng ký</button>
