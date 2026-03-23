@@ -1,3 +1,4 @@
+import { useState } from 'react';
 interface Users {
     username: string;
     email: string;
@@ -5,15 +6,34 @@ interface Users {
     passwordHash: string;
     salt: string;
 }
-const submitForm = (e) => {
-    e.preventDefault();
-    const usernameValue = document.forms["SignUpForm"]["username"].value;
-    const emailValue = document.forms["SignUpForm"]["email"].value;
-    const passwordValue = document.forms["SignUpForm"]["password"].value;
 
-    localStorage.setItem("username", usernameValue);
-}
 const Users = () => {
+    const [user, setUser] = useState<Users>({
+        username: "",
+        email: "",
+        password: "",
+        passwordHash: "",
+        salt: "",
+    });
+    const submitForm = (e) => {
+        e.preventDefault();
+        const usernameValue = document.forms["SignUpForm"]["username"].value;
+        const emailValue = document.forms["SignUpForm"]["email"].value;
+        const passwordValue = document.forms["SignUpForm"]["password"].value;
+        const passwordCfValue = document.forms["SignUpForm"]["passwordCf"].value;
+        if(passwordValue === passwordCfValue) {
+            const newUser: Users = ({
+                username: usernameValue,
+                email: emailValue,
+                password: passwordValue,
+                passwordHash: "",
+                salt: "",
+            });
+            setUser(newUser);
+            localStorage.setItem("user", JSON.stringify(newUser));
+        }
+        alert(1);
+    }
     return (
         <>
             <div style={{

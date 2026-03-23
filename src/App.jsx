@@ -59,11 +59,11 @@ const App = () => {
           <nav className="bg-white shadow-sm py-4 sticky top-0 z-40 after:table after:clear-both">
             <h1 className="text-center text-2xl font-bold text-red-600">MyTube Search</h1>
             <button
-                className="SignUp float-right p-2 m-5 bg-red-500 rounded-2xl text-white"
+                className="SignUp float-right p-3 m-5 bg-red-500 rounded-full text-white"
                 onClick={() => {setMode("SignUp")}}
             >Đăng kí</button>
             <button
-                className="SingIn float-right p-2 m-5 bg-red-500 rounded-2xl text-white"
+                className="SingIn float-right p-3 m-5 bg-red-500 rounded-full text-white"
                 onClick={() => {setMode("SignIn")}}
             >Đăng nhập</button>
           </nav>
