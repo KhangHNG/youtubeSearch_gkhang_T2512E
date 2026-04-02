@@ -4,7 +4,7 @@ import SearchBar from './components/SearchBar';
 import VideoList from './components/VideoList';
 import VideoModal from './components/VideoModal';
 import SignUp from './components/SignUp';
-import SignIn from './components/SignIn';
+import SignIn from './components/LogIn';
 
 function App() {
   // --- Auth State ---

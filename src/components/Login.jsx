@@ -1,63 +1,42 @@
 import React, { useState } from 'react';
 
-const Login = ({ onLoginSuccess }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const SignIn = ({ onLoginSuccess }) => {
+    const [credentials, setCredentials] = useState({ email: '', password: '' });
 
-    const handleLogin = (e) => {
+    const handleChange = (e) => setCredentials({ ...credentials, [e.target.name]: e.target.value });
+
+    const handleSignIn = (e) => {
         e.preventDefault();
+        let users = [];
 
-        // 1. Lấy danh sách users từ Local Storage
-        const users = JSON.parse(localStorage.getItem('users')) || [];
+        try {
+            const savedData = localStorage.getItem('users');
+            users = savedData ? JSON.parse(savedData) : [];
+            if (!Array.isArray(users)) users = [];
+        } catch (error) {
+            alert("Error reading user data. Please clear your browser cache.");
+            return;
+        }
 
-        // 2. Tìm user khớp với Email và Password
-        const user = users.find(u => u.email === email && u.password === password);
+        const user = users.find(
+            (u) => u.email === credentials.email && u.password === credentials.password
+        );
 
         if (user) {
-            // 3. Nếu đúng: Lưu "phiên đăng nhập" vào Local Storage
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            alert("Đăng nhập thành công!");
-
-            // Gọi hàm callback để báo cho App.jsx biết đã login
-            if (onLoginSuccess) onLoginSuccess(user);
+            onLoginSuccess(user);
         } else {
-            alert("Email hoặc mật khẩu không chính xác!");
+            alert("Invalid email or password.");
         }
     };
 
     return (
-        <div className="max-w-md mx-auto my-10 p-10 bg-white rounded-xl shadow-lg border border-gray-100">
-            <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Đăng Nhập</h2>
-            <form onSubmit={handleLogin} className="space-y-4">
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">Email</label>
-                    <input
-                        type="email"
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 outline-none"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">Mật khẩu</label>
-                    <input
-                        type="password"
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 outline-none"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="w-full bg-red-600 text-white font-bold py-2 rounded-lg hover:bg-red-700 transition"
-                >
-                    Đăng Nhập
-                </button>
-            </form>
-        </div>
+        <form onSubmit={handleSignIn} className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md space-y-4">
+            <h3 className="text-xl font-bold text-gray-800">Sign In</h3>
+            <input name="email" type="email" placeholder="Email" className="w-full border p-2 rounded" onChange={handleChange} required />
+            <input name="password" type="password" placeholder="Password" className="w-full border p-2 rounded" onChange={handleChange} required />
+            <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Login</button>
+        </form>
     );
 };
 
-export default Login;
+export default SignIn;
